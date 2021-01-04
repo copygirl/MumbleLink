@@ -9,7 +9,6 @@
 		<RepositoryUrl>https://github.com/copygirl/MumbleLink</RepositoryUrl>
 		
 		<TargetFramework>net452</TargetFramework>
-		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<LangVersion>latest</LangVersion>
 		
 	</PropertyGroup>
@@ -17,14 +16,6 @@
 		
 		<Reference Include="VintagestoryAPI">
 			<HintPath>$(VINTAGE_STORY)/VintagestoryAPI.dll</HintPath>
-			<Private>false</Private>
-		</Reference>
-		<Reference Include="VSEssentials">
-			<HintPath>$(VINTAGE_STORY)/Mods/VSEssentials.dll</HintPath>
-			<Private>false</Private>
-		</Reference>
-		<Reference Include="VSSurvivalMod">
-			<HintPath>$(VINTAGE_STORY)/Mods/VSSurvivalMod.dll</HintPath>
 			<Private>false</Private>
 		</Reference>
 		

@@ -8,9 +8,9 @@ using Vintagestory.API.MathTools;
 
 [assembly: ModInfo("MumbleLink",
 	Description = "Enables Mumble positional audio support through its Link plugin",
-	Website     = "https://github.com/copygirl/MumbleLink",
-	Authors     = new []{ "copygirl", "Nikky" },
-	Side        = "Client")]
+	Website = "https://github.com/copygirl/MumbleLink",
+	Authors = new []{ "copygirl", "Nikky" },
+	Version = "1.0.0", Side = "Client")]
 
 namespace MumbleLink
 {
