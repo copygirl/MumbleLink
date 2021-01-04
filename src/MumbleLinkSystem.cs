@@ -14,31 +14,54 @@ using Vintagestory.API.MathTools;
 
 namespace MumbleLink
 {
-	public class MumbleLinkSystem : ModSystem
+	public class MumbleLinkSystem : ModSystem, IDisposable
 	{
 		private ICoreClientAPI _api;
-		private MumbleLinkData _data = new MumbleLinkData();
-		
-		// Windows
 		private MemoryMappedFile _mappedFile;
 		private MemoryMappedViewStream _stream;
+		private FileSystemWatcher _watcher;
+		
+		private MumbleLinkData _data = new MumbleLinkData();
 		
 		public override void StartClientSide(ICoreClientAPI api)
 		{
 			_api = api;
-			
-			_mappedFile = (Environment.OSVersion.Platform == PlatformID.Unix)
-				? MemoryMappedFile.CreateFromFile($"/dev/shm/MumbleLink.{getuid()}",
-					FileMode.OpenOrCreate, null, MumbleLinkData.Size)
-				: MemoryMappedFile.CreateOrOpen("MumbleLink", MumbleLinkData.Size);
-			_stream = _mappedFile.CreateViewStream(0, MumbleLinkData.Size);
-			
 			api.Event.RegisterGameTickListener(OnGameTick, 20);
+			
+			if (Environment.OSVersion.Platform == PlatformID.Unix) {
+				var fileName = $"/dev/shm/MumbleLink.{getuid()}";
+				
+				void OnCreated(object sender, FileSystemEventArgs e)
+				{
+					Mod.Logger.Notification("Link established");
+					_mappedFile = MemoryMappedFile.CreateFromFile(fileName);
+					_stream     = _mappedFile.CreateViewStream(0, MumbleLinkData.Size);
+				}
+				void OnDeleted(object sender, FileSystemEventArgs e)
+				{
+					Mod.Logger.Notification("Link lost");
+					_stream.Dispose();
+					_mappedFile.Dispose();
+					_stream     = null;
+					_mappedFile = null;
+				}
+				
+				if (File.Exists(fileName))
+					OnCreated(null, null);
+				
+				_watcher = new FileSystemWatcher(Path.GetDirectoryName(fileName), Path.GetFileName(fileName));
+				_watcher.Created += OnCreated;
+				_watcher.Deleted += OnDeleted;
+				_watcher.EnableRaisingEvents = true;
+			} else {
+				_mappedFile = MemoryMappedFile.CreateOrOpen("MumbleLink", MumbleLinkData.Size);
+				_stream     = _mappedFile.CreateViewStream(0, MumbleLinkData.Size);
+			}
 		}
 		
 		private void OnGameTick(float delta)
 		{
-			if ((_api.World?.Player == null)) return; // || _api.IsSinglePlayer) return;
+			if ((_stream == null) || (_api.World?.Player == null) || _api.IsSinglePlayer) return;
 			_data.UITick++;
 			
 			// FIXME: Use unique server identifier somehow (IP?).
@@ -68,6 +91,7 @@ namespace MumbleLink
 		
 		public override void Dispose()
 		{
+			_watcher?.Dispose();
 			_stream?.Dispose();
 			_mappedFile?.Dispose();
 		}
