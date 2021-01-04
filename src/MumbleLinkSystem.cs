@@ -27,14 +27,10 @@ namespace MumbleLink
 		{
 			_api = api;
 			
-			if (Environment.OSVersion.Platform == PlatformID.Unix) {
-				var fileName = $"/dev/shm/MumbleLink.{getuid()}";
-				_mappedFile = File.Exists(fileName)
-					? MemoryMappedFile.CreateFromFile(fileName, FileMode.Open)
-					: MemoryMappedFile.CreateFromFile(fileName, FileMode.Create, null, MumbleLinkData.Size);
-			} else {
-				_mappedFile = MemoryMappedFile.CreateOrOpen("MumbleLink", MumbleLinkData.Size);
-			}
+			_mappedFile = (Environment.OSVersion.Platform == PlatformID.Unix)
+				? MemoryMappedFile.CreateFromFile($"/dev/shm/MumbleLink.{getuid()}",
+					FileMode.OpenOrCreate, null, MumbleLinkData.Size)
+				: MemoryMappedFile.CreateOrOpen("MumbleLink", MumbleLinkData.Size);
 			_stream = _mappedFile.CreateViewStream(0, MumbleLinkData.Size);
 			
 			api.Event.RegisterGameTickListener(OnGameTick, 20);
@@ -42,7 +38,7 @@ namespace MumbleLink
 		
 		private void OnGameTick(float delta)
 		{
-			if ((_api.World?.Player == null) || _api.IsSinglePlayer) return;
+			if ((_api.World?.Player == null)) return; // || _api.IsSinglePlayer) return;
 			_data.UITick++;
 			
 			// FIXME: Use unique server identifier somehow (IP?).
