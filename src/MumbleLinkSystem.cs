@@ -56,15 +56,15 @@ namespace MumbleLink
 			var headYaw   = entity.BodyYaw + entity.HeadYaw;
 			_data.AvatarPosition = entity.Pos.XYZ + entity.LocalEyePos;
 			_data.AvatarFront = new Vec3d(
-				-GameMath.Sin(headYaw) * GameMath.Cos(headPitch),
+				-GameMath.Cos(headYaw) * GameMath.Cos(headPitch),
 				-GameMath.Sin(headPitch),
-				 GameMath.Cos(headYaw) * GameMath.Cos(headPitch));
+				-GameMath.Sin(headYaw) * GameMath.Cos(headPitch));
 			
 			_data.CameraPosition = entity.CameraPos;
 			_data.CameraFront = new Vec3d(
-				-GameMath.Sin(player.CameraYaw) * GameMath.Cos(player.CameraPitch),
-				-GameMath.Sin(player.CameraPitch),
-				 GameMath.Cos(player.CameraYaw) * GameMath.Cos(player.CameraPitch));
+				-GameMath.Cos(player.CameraYaw) * -GameMath.Cos(player.CameraPitch),
+				 GameMath.Sin(player.CameraPitch),
+				-GameMath.Sin(player.CameraYaw) * -GameMath.Cos(player.CameraPitch));
 			
 			_stream.Position = 0;
 			_data.Write(_stream);
