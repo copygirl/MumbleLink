@@ -42,7 +42,7 @@ namespace MumbleLink
 		
 		private void OnGameTick(float delta)
 		{
-			if (_api.World?.Player == null) return;
+			if ((_api.World?.Player == null) || _api.IsSinglePlayer) return;
 			_data.UITick++;
 			
 			// FIXME: Use unique server identifier somehow (IP?).
@@ -56,13 +56,13 @@ namespace MumbleLink
 			var headYaw   = entity.BodyYaw + entity.HeadYaw;
 			_data.AvatarPosition = entity.Pos.XYZ + entity.LocalEyePos;
 			_data.AvatarFront = new Vec3d(
-				-GameMath.Cos(headYaw) * GameMath.Cos(headPitch),
+				 GameMath.Cos(headYaw) * GameMath.Cos(headPitch),
 				-GameMath.Sin(headPitch),
 				-GameMath.Sin(headYaw) * GameMath.Cos(headPitch));
 			
 			_data.CameraPosition = entity.CameraPos;
 			_data.CameraFront = new Vec3d(
-				-GameMath.Cos(player.CameraYaw) * -GameMath.Cos(player.CameraPitch),
+				 GameMath.Cos(player.CameraYaw) * -GameMath.Cos(player.CameraPitch),
 				 GameMath.Sin(player.CameraPitch),
 				-GameMath.Sin(player.CameraYaw) * -GameMath.Cos(player.CameraPitch));
 			
