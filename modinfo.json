@@ -1,0 +1,16 @@
+{
+  "type": "code",
+  "modid": "MumbleLink",
+  "name": "Enables Mumble positional audio support through its Link plugin",
+  "version": "1.0.0",
+    
+  "description" : "Enables Mumble positional audio support through its Link plugin",
+  "website": "https://github.com/copygirl/MumbleLink",
+  "authors": [ "copygirl", "Nikky" ],
+
+  "side": "Client",
+
+  "dependencies": {
+      "game": ""
+  }
+}

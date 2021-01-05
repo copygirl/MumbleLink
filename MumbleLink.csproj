@@ -20,4 +20,14 @@
 		</Reference>
 		
 	</ItemGroup>
+	
+	<ItemGroup>
+		<None Include="modinfo.json" CopyToOutputDirectory="PreserveNewest" />
+		<!-- <None Include="modicon.png" CopyToOutputDirectory="PreserveNewest" /> -->
+	</ItemGroup>
+
+	<Target Name="Package" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' == 'Debug'">
+		<ZipDirectory DestinationFile="bin/$(TargetName).zip" SourceDirectory="$(TargetDir)" Overwrite="true" />
+	</Target>
+
 </Project>
