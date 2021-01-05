@@ -1,7 +1,7 @@
 {
   "type": "code",
-  "modid": "MumbleLink",
-  "name": "Enables Mumble positional audio support through its Link plugin",
+  "modid": "mumblelink",
+  "name": "MumbleLink",
   "version": "1.0.0",
     
   "description" : "Enables Mumble positional audio support through its Link plugin",
