@@ -64,8 +64,7 @@ namespace MumbleLink
 			if ((_stream == null) || (_api.World?.Player == null) || _api.IsSinglePlayer) return;
 			_data.UITick++;
 			
-			// FIXME: Use unique server identifier somehow (IP?).
-			_data.Context  = "";//_api.World.SavegameIdentifier;
+			_data.Context  = _api.World.Seed.ToString();
 			_data.Identity = _api.World.Player.PlayerUID;
 			
 			var player = _api.World.Player;
