@@ -2,11 +2,10 @@
   "type": "code",
   "modid": "mumblelink",
   "name": "MumbleLink",
-  "version": "1.0.0",
-    
+  "version": "1.1.0",
+  "side": "Client",
+  
   "description" : "Enables Mumble positional audio support through its Link plugin",
   "website": "https://github.com/copygirl/MumbleLink",
-  "authors": [ "copygirl", "Nikky" ],
-
-  "side": "Client"
+  "authors": [ "copygirl", "Nikky" ]
 }

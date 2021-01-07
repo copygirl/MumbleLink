@@ -10,7 +10,7 @@ using Vintagestory.API.MathTools;
 	Description = "Enables Mumble positional audio support through its Link plugin",
 	Website = "https://github.com/copygirl/MumbleLink",
 	Authors = new []{ "copygirl", "Nikky" },
-	Version = "1.0.0", Side = "Client")]
+	Version = "1.1.0", Side = "Client")]
 
 namespace MumbleLink
 {
