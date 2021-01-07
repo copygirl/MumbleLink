@@ -13,7 +13,7 @@ This mod is only required on clients to function, but requires the separate voic
 
 Available right here through [GitHub Releases].
 
-To install, start the game and go to the *Mod Manager* in the main menu. There you can find a button labeled *Open Mod Folder* that will open said folder in your file explorer. Simply copy the .dll file you downloaded into here.
+To install, start the game and go to the *Mod Manager* in the main menu. There you can find a button labeled *Open Mod Folder* that will open said folder in your file explorer. Simply put the `.zip` file you downloaded into here **without extracting it**.
 
 [GitHub Releases]: https://github.com/copygirl/MumbleLink/releases
 
