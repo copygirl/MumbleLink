@@ -8,9 +8,5 @@
   "website": "https://github.com/copygirl/MumbleLink",
   "authors": [ "copygirl", "Nikky" ],
 
-  "side": "Client",
-
-  "dependencies": {
-      "game": ""
-  }
+  "side": "Client"
 }

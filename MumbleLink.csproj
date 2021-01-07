@@ -1,6 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		
 		<AssemblyTitle>MumbleLink</AssemblyTitle>
 		<Authors>copygirl</Authors>
 		<Version>1.0.0</Version>
@@ -10,24 +9,24 @@
 		
 		<TargetFramework>net452</TargetFramework>
 		<LangVersion>latest</LangVersion>
-		
 	</PropertyGroup>
+	
 	<ItemGroup>
-		
 		<Reference Include="VintagestoryAPI">
 			<HintPath>$(VINTAGE_STORY)/VintagestoryAPI.dll</HintPath>
 			<Private>false</Private>
 		</Reference>
-		
 	</ItemGroup>
 	
-	<ItemGroup>
-		<None Include="modinfo.json" CopyToOutputDirectory="PreserveNewest" />
-		<!-- <None Include="modicon.png" CopyToOutputDirectory="PreserveNewest" /> -->
+	<ItemGroup Condition="'$(Configuration)' == 'Release'">
+		<None Include="UNLICENSE" CopyToOutputDirectory="PreserveNewest" />
+		<None Include="resources/**">
+			<Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
-
-	<Target Name="Package" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' == 'Debug'">
+	
+	<Target Name="Package" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' == 'Release'">
 		<ZipDirectory DestinationFile="bin/$(TargetName).zip" SourceDirectory="$(TargetDir)" Overwrite="true" />
 	</Target>
-
 </Project>
