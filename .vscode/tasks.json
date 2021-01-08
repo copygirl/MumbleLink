@@ -2,7 +2,7 @@
 	"version": "2.0.0",
 	"tasks": [{
 		"label": "build (Debug)",
-		"group": { "kind": "build", "isDefault": true },
+		"group": { "kind": "Build", "isDefault": true },
 		"presentation": { "reveal": "silent" },
 		"problemMatcher": "$msCompile",
 		
@@ -10,7 +10,7 @@
 		"command": "dotnet",
 		"args": [ "build", "-c", "Debug" ]
 	},{
-		"label": "build (Release)",
+		"label": "Build (Release)",
 		"group": "build",
 		"presentation": { "reveal": "silent" },
 		"problemMatcher": "$msCompile",
