@@ -70,17 +70,22 @@ namespace MumbleLink
 			var player = _api.World.Player;
 			var entity = player.Entity;
 			
+			// Mumble Link uses left-handed coordinate system (+X is to the right)
+			// wheras Vintage Story uses a right-handed one (where +X is to the left),
+			// so we actually have the flip the X coordinate to get the right values.
+			Vec3d FlipX(Vec3d vec) => new Vec3d(-vec.X, vec.Y, vec.Z);
+			
 			var headPitch = entity.HeadPitch;
 			var headYaw   = entity.BodyYaw + entity.HeadYaw;
-			_data.AvatarPosition = entity.Pos.XYZ + entity.LocalEyePos;
+			_data.AvatarPosition = FlipX(entity.Pos.XYZ + entity.LocalEyePos);
 			_data.AvatarFront = new Vec3d(
-				 GameMath.Cos(headYaw) * GameMath.Cos(headPitch),
+				-GameMath.Cos(headYaw) * GameMath.Cos(headPitch),
 				-GameMath.Sin(headPitch),
 				-GameMath.Sin(headYaw) * GameMath.Cos(headPitch));
 			
-			_data.CameraPosition = entity.CameraPos;
+			_data.CameraPosition = FlipX(entity.CameraPos);
 			_data.CameraFront = new Vec3d(
-				 GameMath.Cos(player.CameraYaw) * -GameMath.Cos(player.CameraPitch),
+				-GameMath.Cos(player.CameraYaw) * -GameMath.Cos(player.CameraPitch),
 				 GameMath.Sin(player.CameraPitch),
 				-GameMath.Sin(player.CameraYaw) * -GameMath.Cos(player.CameraPitch));
 			
