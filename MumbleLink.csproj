@@ -2,7 +2,7 @@
 	<PropertyGroup>
 		<AssemblyTitle>MumbleLink</AssemblyTitle>
 		<Authors>copygirl</Authors>
-		<Version>1.1.1</Version>
+		<Version>1.1.2</Version>
 		
 		<Description>Vintage Story mod that enables Mumble positional audio support through its Link plugin</Description>
 		<RepositoryUrl>https://github.com/copygirl/MumbleLink</RepositoryUrl>
