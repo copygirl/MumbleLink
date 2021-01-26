@@ -1,8 +1,8 @@
 {
 	"version": "2.0.0",
 	"tasks": [{
-		"label": "build (Debug)",
-		"group": { "kind": "Build", "isDefault": true },
+		"label": "Build (Debug)",
+		"group": { "kind": "build", "isDefault": true },
 		"presentation": { "reveal": "silent" },
 		"problemMatcher": "$msCompile",
 		
