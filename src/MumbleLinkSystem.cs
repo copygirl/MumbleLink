@@ -10,7 +10,7 @@ using Vintagestory.API.MathTools;
 	Description = "Enables Mumble positional audio support through its Link plugin",
 	Website = "https://github.com/copygirl/MumbleLink",
 	Authors = new []{ "copygirl", "Nikky" },
-	Version = "1.1.0", Side = "Client")]
+	Version = "1.2.0", Side = "Client")]
 
 namespace MumbleLink
 {
@@ -21,7 +21,7 @@ namespace MumbleLink
 		private MemoryMappedViewStream _stream;
 		private FileSystemWatcher _watcher;
 		
-		private MumbleLinkData _data = new MumbleLinkData();
+		private readonly MumbleLinkData _data = new();
 		
 		public override void StartClientSide(ICoreClientAPI api)
 		{
@@ -73,7 +73,7 @@ namespace MumbleLink
 			// Mumble Link uses left-handed coordinate system (+X is to the right)
 			// wheras Vintage Story uses a right-handed one (where +X is to the left),
 			// so we actually have the flip the X coordinate to get the right values.
-			Vec3d FlipX(Vec3d vec) => new Vec3d(-vec.X, vec.Y, vec.Z);
+			static Vec3d FlipX(Vec3d vec) => new(-vec.X, vec.Y, vec.Z);
 			
 			var headPitch = entity.HeadPitch;
 			var headYaw   = entity.BodyYaw + entity.HeadYaw;

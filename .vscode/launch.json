@@ -9,7 +9,7 @@
 		"args": [
 			"--playStyle", "surviveandbuild",
 			"--openWorld", "modding test world",
-			"--addModPath", "${workspaceFolder}/bin/Debug/net452",
+			"--addModPath", "${workspaceFolder}/bin/Debug/net461",
 		],
 		"console": "internalConsole",
 		"internalConsoleOptions": "openOnSessionStart",
@@ -22,7 +22,7 @@
 		"args": [
 			"--playStyle", "surviveandbuild",
 			"--openWorld", "modding test world",
-			"--addModPath", "${workspaceFolder}/bin/Debug/net452",
+			"--addModPath", "${workspaceFolder}/bin/Debug/net461",
 		],
 		"console": "internalConsole",
 		"internalConsoleOptions": "openOnSessionStart",

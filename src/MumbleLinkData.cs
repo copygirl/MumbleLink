@@ -7,7 +7,8 @@ namespace MumbleLink
 {
 	public class MumbleLinkData
 	{
-		public static int Size { get; } = (Environment.OSVersion.Platform == PlatformID.Unix) ? 10580 : 5460;
+		public static bool IsUnix { get; } = Environment.OSVersion.Platform == PlatformID.Unix;
+		public static int Size { get; } = IsUnix ? 10580 : 5460;
 		
 		public uint UIVersion { get; } = 2;
 		public uint UITick { get; set; }
@@ -35,21 +36,20 @@ namespace MumbleLink
 		public void Write(Stream stream)
 		{
 			var encoding = (Environment.OSVersion.Platform == PlatformID.Unix) ? Encoding.UTF32 : Encoding.Unicode;
-			using (var writer = new BinaryWriter(stream, encoding, true)) {
-				writer.Write(UIVersion);
-				writer.Write(UITick);
-				WriteVec3d(writer, AvatarPosition);
-				WriteVec3d(writer, AvatarFront);
-				WriteVec3d(writer, AvatarTop);
-				WriteString(writer, 256, Name);
-				WriteVec3d(writer, CameraPosition);
-				WriteVec3d(writer, CameraFront);
-				WriteVec3d(writer, CameraTop);
-				WriteString(writer, 256, Identity);
-				WriteString(writer, 256, Context, Encoding.UTF8, true);
-				WriteString(writer, 2048, Description);
-			}
-		}
+            using var writer = new BinaryWriter(stream, encoding, true);
+            writer.Write(UIVersion);
+            writer.Write(UITick);
+            WriteVec3d(writer, AvatarPosition);
+            WriteVec3d(writer, AvatarFront);
+            WriteVec3d(writer, AvatarTop);
+            WriteString(writer, 256, Name);
+            WriteVec3d(writer, CameraPosition);
+            WriteVec3d(writer, CameraFront);
+            WriteVec3d(writer, CameraTop);
+            WriteString(writer, 256, Identity);
+            WriteString(writer, 256, Context, Encoding.UTF8, true);
+            WriteString(writer, 2048, Description);
+        }
 		
 		private void WriteVec3d(BinaryWriter writer, Vec3d vector)
 		{
@@ -58,9 +58,10 @@ namespace MumbleLink
 			writer.Write((float)vector.Z);
 		}
 		
-		private void WriteString(BinaryWriter writer, int size, string value, Encoding encoding = null, bool lengthPrefixed = false)
+		private void WriteString(BinaryWriter writer, int size, string value,
+		                         Encoding encoding = null, bool lengthPrefixed = false)
 		{
-			encoding = encoding ?? ((Environment.OSVersion.Platform == PlatformID.Unix) ? Encoding.UTF32 : Encoding.Unicode);
+			encoding ??= IsUnix ? Encoding.UTF32 : Encoding.Unicode;
 			var bytes  = new byte[encoding.GetByteCount(" ") * size];
 			var length = encoding.GetBytes(value, 0, value.Length, bytes, 0);
 			if (lengthPrefixed) writer.Write((uint)length);
