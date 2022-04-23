@@ -36,6 +36,14 @@ These settings will only affect how **you** hear others. For best effect, make s
 
 ![](docs/mumble_configuration.png)
 
+### Flatpak
+
+If you are a Linux user that installed Vintage Story as a Flatpak, you will need to give Vintage Story access to shared memory for the connection with Mumble to work. To do that:
+- Install [Flatseal](https://flathub.org/apps/details/com.github.tchx84.Flatseal). This allows you to change the settings of Flatpak Apps.
+- Once installed, open Flatseal and click on Vintage Story.
+- Scroll down to the option "Shared Memory" (under "Device"), and enable it.
+- Restart the game if it is open.
+
 ## Credits
 
 This mod was initially created over the course of 2 days with the help of my amazing friend **[Nikky]** and overwhelming emotional support of those who watched my [Twitch] stream.
